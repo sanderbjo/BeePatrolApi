@@ -1,0 +1,29 @@
+version: '3.4'
+
+networks:
+    useradmin:
+
+services:
+  sqldatabase:
+    container_name: ms-sql-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:  
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Passord12345!
+    networks:
+        - useradmin
+
+  useradmin:
+    container_name: user-admin
+    image: ${DOCKER_REGISTRY-}useradmin
+    build:
+      context: .
+      dockerfile: useradmin/Dockerfile
+    depends_on:
+        - sqldatabase
+    environment:
+        - DB_HOST=sqldatabase
+        - DB_NAME=useradmin
+        - DB_SA_PASSWORD=Passord12345!
+    networks:
+        - useradmin
