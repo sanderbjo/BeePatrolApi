@@ -9,7 +9,7 @@ using useradmin.Models;
 
 namespace useradmin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("useradmin/api/v1/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -46,7 +46,7 @@ namespace useradmin.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(long id, User user)
         {
-            if (id != user.Id)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
@@ -77,11 +77,11 @@ namespace useradmin.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetUser", new { id = user.Id }, user);
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
         }
 
         // DELETE: api/Users/5
@@ -102,7 +102,7 @@ namespace useradmin.Controllers
 
         private bool UserExists(long id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }

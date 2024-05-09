@@ -1,0 +1,6 @@
+@beefamily_HostAddress = http://localhost:5291
+
+GET {{beefamily_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

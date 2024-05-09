@@ -4,7 +4,10 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "useradmin": "StartDebugging"
+        "useradmin": "StartDebugging",
+        "beefamily": "StartDebugging",
+        "todo": "StartDebugging",
+        "journal": "StartDebugging"
       }
     }
   }
