@@ -1,0 +1,151 @@
+version: '3.4'
+
+networks:
+    useradmin:
+    beefamily:
+    journal:
+    todo:
+    authentication:
+
+services:
+  user-sqldatabase:
+    container_name: user-ms-sql-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1433:1433
+    environment:  
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Passord12345!
+    networks:
+        - useradmin
+
+  beefamily-sqldatabase:
+    container_name: beefamily-ms-sql-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1434:1433
+    environment:  
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Passord12345!
+    networks:
+        - beefamily
+
+  journal-sqldatabase:
+    container_name: journal-ms-sql-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1435:1433
+    environment:  
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Passord12345!
+    networks:
+        - journal
+
+  todo-sqldatabase:
+    container_name: todo-ms-sql-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1436:1433
+    environment:  
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Passord12345!
+    networks:
+        - todo
+ 
+  authentication-sqldatabase:
+    container_name: authentication-ms-sql-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1437:1433
+    environment:  
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Passord12345!
+    networks:
+        - authentication
+
+  useradmin:
+    container_name: user-admin
+    image: useradmin
+    ports:
+        - 8081:8081
+    build:
+      context: .
+      dockerfile: useradmin/Dockerfile
+    depends_on:
+        - user-sqldatabase
+    environment:
+        - DB_HOST=user-sqldatabase
+        - DB_NAME=useradmin
+        - DB_SA_PASSWORD=Passord12345!
+    networks:
+        - useradmin
+
+  beefamily:
+    container_name: bee-family
+    image: beefamily
+    ports:
+        - 8082:8081
+    build:
+      context: .
+      dockerfile: beefamily/Dockerfile
+    depends_on: 
+        - beefamily-sqldatabase
+    environment:
+        - DB_HOST=beefamily-sqldatabase
+        - DB_NAME=beefamily
+        - DB_SA_PASSWORD=Passord12345!
+    networks:
+        - beefamily
+
+  journal:
+    container_name: journal-
+    image: journal
+    ports:
+        - 8083:8081
+    build:
+      context: .
+      dockerfile: journal/Dockerfile
+    depends_on: 
+        - journal-sqldatabase
+    environment:
+        - DB_HOST=journal-sqldatabase
+        - DB_NAME=journal
+        - DB_SA_PASSWORD=Passord12345!
+    networks:
+        - journal
+
+  todo:
+    container_name: todo-
+    image: todo
+    ports:
+        - 8084:8081
+    build:
+      context: .
+      dockerfile: Todo/Dockerfile
+    depends_on: 
+        - todo-sqldatabase
+    environment:
+        - DB_HOST=todo-sqldatabase
+        - DB_NAME=todo
+        - DB_SA_PASSWORD=Passord12345!
+    networks:
+        - todo
+
+  
+  authentication:
+    container_name: authentication_
+    image: ${DOCKER_REGISTRY-}authentication
+    ports:
+        - 8085:8081
+    build:
+      context: .
+      dockerfile: Authentication/Dockerfile
+    depends_on: 
+        - authentication-sqldatabase
+    environment:
+        - DB_HOST=authentication-sqldatabase
+        - DB_NAME=authentication
+        - DB_SA_PASSWORD=Passord12345!
+    networks:
+        - authentication
+
