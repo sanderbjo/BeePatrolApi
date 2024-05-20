@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journal", "Journal\Journal.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo", "Todo\Todo.csproj", "{E2FED437-62DD-4834-8F44-95C14567EC70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "Authentication\Authentication.csproj", "{92BFDE9A-0C09-4B04-9B90-C1724E0265AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E2FED437-62DD-4834-8F44-95C14567EC70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2FED437-62DD-4834-8F44-95C14567EC70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2FED437-62DD-4834-8F44-95C14567EC70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92BFDE9A-0C09-4B04-9B90-C1724E0265AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92BFDE9A-0C09-4B04-9B90-C1724E0265AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92BFDE9A-0C09-4B04-9B90-C1724E0265AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92BFDE9A-0C09-4B04-9B90-C1724E0265AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

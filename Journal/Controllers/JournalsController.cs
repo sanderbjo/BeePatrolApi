@@ -22,9 +22,9 @@ namespace Journal.Controllers
 
         // GET: api/Journals?
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Journal.Models.Journal>>> GetJournals(int userid, DateTime date)
+        public async Task<ActionResult<IEnumerable<Journal.Models.Journal>>> GetJournals(int userid)
         {
-            var filteredJournals = await _context.Journals.Where(journal => journal.UserId == userid && journal.Date.Date == date.Date).ToListAsync();
+            var filteredJournals = await _context.Journals.Where(journal => journal.UserId == userid).ToListAsync();
 
             if (filteredJournals.Count == 0)
             {
@@ -87,7 +87,9 @@ namespace Journal.Controllers
             _context.Journals.Add(journal);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetJournal", new { id = journal.JournalId }, journal);
+            //return CreatedAtAction("GetJournal", new { id = journal.JournalId }, journal);
+            return CreatedAtAction(nameof(GetJournal), new { id = journal.UserId }, journal);
+
         }
 
         // DELETE: api/Journals/5

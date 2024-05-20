@@ -20,11 +20,18 @@ namespace Todo.Controllers
             _context = context;
         }
 
-        // GET: api/Todoes
+        // GET: api/Todoes?userid & date
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Todo.Models.Todo>>> GetJournals()
+        public async Task<ActionResult<IEnumerable<Todo.Models.Todo>>> GetJournals(int userid, DateTime date)
         {
-            return await _context.Todoes.ToListAsync();
+            var filteredTodoes = await _context.Todoes.Where(todo => todo.UserId == userid && todo.Deadline.Date == date.Date).ToListAsync();
+
+            if (filteredTodoes.Count == 0)
+            {
+                return NotFound(); // Return 404 if no journals found
+            }
+
+            return Ok(filteredTodoes);
         }
 
         // GET: api/Todoes/5

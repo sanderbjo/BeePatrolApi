@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using beefamily.Models;
 
@@ -20,14 +15,21 @@ namespace beefamily.Controllers
             _context = context;
         }
 
-        // GET: api/Hives
+        // GET: api/Hives?userid
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hive>>> GetHives()
+        public async Task<ActionResult<IEnumerable<Hive>>> GetHivesByUser(string userid)
         {
-            return await _context.Hives.ToListAsync();
+            var usersHives = await _context.Hives.Where(hives => hives.UserId == userid).ToListAsync();
+
+            if (usersHives.Count == 0)
+            {
+                return NotFound(); // Return 404 if no journals found
+            }
+
+            return Ok(usersHives);
         }
 
-        // GET: api/Hives/5
+        // GET: api/Hives/{hiveId}
         [HttpGet("{id}")]
         public async Task<ActionResult<Hive>> GetHive(string id)
         {
@@ -41,8 +43,7 @@ namespace beefamily.Controllers
             return hive;
         }
 
-        // PUT: api/Hives/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Hives/{hiveId}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHive(string id, Hive hive)
         {
@@ -73,7 +74,6 @@ namespace beefamily.Controllers
         }
 
         // POST: api/Hives
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Hive>> PostHive(Hive hive)
         {
@@ -93,14 +93,12 @@ namespace beefamily.Controllers
                     throw;
                 }
             }
-
-            //return CreatedAtAction("GetHive", new { id = hive.HiveId }, hive);
             return CreatedAtAction(nameof(GetHive), new { id = hive.HiveId }, hive);
 
         }
 
 
-        // DELETE: api/Hives/5
+        // DELETE: api/Hives/{hiveId}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHive(string id)
         {

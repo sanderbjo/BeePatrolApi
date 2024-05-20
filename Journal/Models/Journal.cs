@@ -4,7 +4,7 @@
     {
         public int JournalId { get; set; }
         public int UserId { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string Title { get; set; }
         public DateTime Date { get; set; }
         public string? HiveId { get; set; }
@@ -15,6 +15,7 @@
         public bool QueenSwapped { get; set; } = false;
         public string? FreeText { get; set; }
         public int? BeeMoodLevel { get; set; }
+        public int? HoneyHarvested { get; set; }
 
     }
 }
